@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎃 Spooky Halloween Night 🎃</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Nosifer&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-orange-50 overflow-x-hidden">
+    <!-- Floating Elements Container -->
+    <div id="floating-container"></div>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-purple-900 via-gray-900 to-black opacity-90"></div>
+
+        <!-- Animated Background Elements -->
+        <div class="ghost ghost-1"></div>
+        <div class="ghost ghost-2"></div>
+        <div class="ghost ghost-3"></div>
+
+        <div class="container mx-auto px-4 z-10 text-center">
+            <h1 class="text-7xl md:text-9xl font-bold mb-6 spooky-title glow-text">
+                HAPPY HALLOWEEN
+            </h1>
+            <p class="text-2xl md:text-3xl mb-12 text-orange-400 animate-pulse">
+                Enter if you dare... 👻
+            </p>
+            <button id="enter-btn" class="px-8 py-4 bg-orange-600 hover:bg-orange-700 rounded-lg text-2xl font-bold transform hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-orange-500/50 cursor-pointer">
+                🎃 Enter the Haunted House 🎃
+            </button>
+        </div>
+    </section>
+
+    <!-- Pumpkin Counter Game -->
+    <section id="game-section" class="min-h-screen py-20 px-4 bg-gradient-to-b from-black via-purple-900 to-black hidden">
+        <div class="container mx-auto text-center">
+            <h2 class="text-5xl md:text-7xl font-bold mb-8 spooky-title glow-text">
+                Catch the Pumpkins! 🎃
+            </h2>
+            <p class="text-xl mb-8 text-orange-300">Click the flying pumpkins before they disappear!</p>
+
+            <div class="mb-8">
+                <div class="inline-block bg-gray-800 rounded-lg px-8 py-4 shadow-lg border-2 border-orange-500">
+                    <p class="text-2xl">Score: <span id="score" class="text-orange-400 font-bold">0</span></p>
+                    <p class="text-xl mt-2">Time: <span id="timer" class="text-purple-400 font-bold">30</span>s</p>
+                </div>
+            </div>
+
+            <div id="game-area" class="relative w-full h-96 bg-gray-900 rounded-lg border-4 border-orange-600 shadow-2xl overflow-hidden">
+                <div id="game-status" class="absolute inset-0 flex items-center justify-center">
+                    <button id="start-game" class="px-8 py-4 bg-purple-600 hover:bg-purple-700 rounded-lg text-2xl font-bold transform hover:scale-110 transition-all duration-300 cursor-pointer">
+                        Start Game
+                    </button>
+                </div>
+            </div>
+
+            <button id="back-btn" class="mt-8 px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-xl font-bold transform hover:scale-105 transition-all duration-300 cursor-pointer">
+                ← Back to Home
+            </button>
+        </div>
+    </section>
+
+    <!-- Spooky Gallery Section -->
+    <section class="py-20 px-4 bg-gradient-to-b from-black via-gray-900 to-purple-900">
+        <div class="container mx-auto">
+            <h2 class="text-5xl md:text-7xl font-bold text-center mb-16 spooky-title glow-text">
+                Hall of Horrors
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="spooky-card bg-gray-800 rounded-lg p-6 transform hover:scale-105 transition-all duration-300 border-2 border-orange-500 shadow-lg hover:shadow-orange-500/50">
+                    <div class="text-6xl mb-4 text-center animate-bounce">👻</div>
+                    <h3 class="text-2xl font-bold mb-3 text-orange-400">Ghostly Encounters</h3>
+                    <p class="text-gray-300">Beware of the spirits that roam these halls after midnight...</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="spooky-card bg-gray-800 rounded-lg p-6 transform hover:scale-105 transition-all duration-300 border-2 border-purple-500 shadow-lg hover:shadow-purple-500/50">
+                    <div class="text-6xl mb-4 text-center animate-bounce">🧛</div>
+                    <h3 class="text-2xl font-bold mb-3 text-purple-400">Vampire's Lair</h3>
+                    <p class="text-gray-300">The count awakens when darkness falls upon the land...</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="spooky-card bg-gray-800 rounded-lg p-6 transform hover:scale-105 transition-all duration-300 border-2 border-green-500 shadow-lg hover:shadow-green-500/50">
+                    <div class="text-6xl mb-4 text-center animate-bounce">🧟</div>
+                    <h3 class="text-2xl font-bold mb-3 text-green-400">Zombie Apocalypse</h3>
+                    <p class="text-gray-300">The undead rise from their graves seeking... brains!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Creepy Facts Section -->
+    <section class="py-20 px-4 bg-gradient-to-b from-purple-900 via-black to-gray-900">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-5xl md:text-7xl font-bold text-center mb-16 spooky-title glow-text">
+                Spooky Facts
+            </h2>
+
+            <div class="space-y-6">
+                <div class="fact-box bg-gray-800 border-l-4 border-orange-500 p-6 rounded-r-lg transform hover:translate-x-2 transition-all duration-300">
+                    <p class="text-lg text-gray-300">🎃 Halloween originated from the ancient Celtic festival of Samhain over 2,000 years ago.</p>
+                </div>
+
+                <div class="fact-box bg-gray-800 border-l-4 border-purple-500 p-6 rounded-r-lg transform hover:translate-x-2 transition-all duration-300">
+                    <p class="text-lg text-gray-300">👻 The fear of Halloween is called Samhainophobia.</p>
+                </div>
+
+                <div class="fact-box bg-gray-800 border-l-4 border-green-500 p-6 rounded-r-lg transform hover:translate-x-2 transition-all duration-300">
+                    <p class="text-lg text-gray-300">🦇 Vampire bats are real! They live in Central and South America and drink blood.</p>
+                </div>
+
+                <div class="fact-box bg-gray-800 border-l-4 border-red-500 p-6 rounded-r-lg transform hover:translate-x-2 transition-all duration-300">
+                    <p class="text-lg text-gray-300">🕷️ The world's largest spider web was found in Texas, spanning 200 yards!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8 text-center border-t-2 border-orange-500">
+        <p class="text-orange-400 text-xl">🎃 Have a Spooktacular Halloween! 🎃</p>
+        <p class="text-gray-500 mt-2">Built with Flask & Tailwind CSS</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

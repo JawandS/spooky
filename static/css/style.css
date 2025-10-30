@@ -1,0 +1,219 @@
+/* Halloween Theme Custom Styles */
+
+* {
+    font-family: 'Arial', sans-serif;
+}
+
+.spooky-title {
+    font-family: 'Creepster', cursive;
+    text-shadow: 0 0 20px rgba(255, 165, 0, 0.8),
+                 0 0 40px rgba(255, 165, 0, 0.6),
+                 0 0 60px rgba(255, 165, 0, 0.4);
+}
+
+.glow-text {
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 20px rgba(255, 165, 0, 0.8),
+                     0 0 40px rgba(255, 165, 0, 0.6),
+                     0 0 60px rgba(255, 165, 0, 0.4);
+    }
+    to {
+        text-shadow: 0 0 30px rgba(255, 165, 0, 1),
+                     0 0 60px rgba(255, 165, 0, 0.8),
+                     0 0 90px rgba(255, 165, 0, 0.6);
+    }
+}
+
+/* Floating Ghosts */
+.ghost {
+    position: absolute;
+    width: 80px;
+    height: 100px;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, transparent 70%);
+    border-radius: 50% 50% 0 0;
+    opacity: 0.6;
+    animation: float 6s ease-in-out infinite;
+}
+
+.ghost::before,
+.ghost::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    top: 30px;
+}
+
+.ghost::before {
+    left: 20px;
+}
+
+.ghost::after {
+    right: 20px;
+}
+
+.ghost-1 {
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.ghost-2 {
+    top: 60%;
+    right: 15%;
+    animation-delay: 2s;
+}
+
+.ghost-3 {
+    top: 30%;
+    left: 70%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    25% {
+        transform: translateY(-20px) translateX(10px);
+    }
+    50% {
+        transform: translateY(0) translateX(20px);
+    }
+    75% {
+        transform: translateY(-15px) translateX(10px);
+    }
+}
+
+/* Spooky Card Hover Effects */
+.spooky-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.spooky-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255, 165, 0, 0.1),
+        transparent
+    );
+    transform: rotate(45deg);
+    transition: all 0.5s;
+}
+
+.spooky-card:hover::before {
+    left: 100%;
+}
+
+/* Fact Box Animation */
+.fact-box {
+    transition: all 0.3s ease;
+}
+
+.fact-box:hover {
+    background: linear-gradient(to right, rgba(31, 41, 55, 1), rgba(31, 41, 55, 0.8));
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Pumpkin Game Elements */
+.pumpkin {
+    position: absolute;
+    font-size: 3rem;
+    cursor: pointer;
+    user-select: none;
+    animation: float-pumpkin 3s ease-in-out infinite;
+    transition: transform 0.2s;
+}
+
+.pumpkin:hover {
+    transform: scale(1.2) rotate(15deg);
+}
+
+@keyframes float-pumpkin {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(5deg);
+    }
+}
+
+/* Cursor Trail Effects */
+.bat {
+    position: fixed;
+    pointer-events: none;
+    font-size: 1.5rem;
+    animation: fly-away 2s ease-out forwards;
+    z-index: 9999;
+}
+
+@keyframes fly-away {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(100px, -100px) rotate(360deg);
+    }
+}
+
+/* Loading Animation */
+@keyframes pulse-slow {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #f97316, #a855f7);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #fb923c, #c084fc);
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Button Pulse Effect */
+@keyframes button-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 20px rgba(249, 115, 22, 0);
+    }
+}
+
+#enter-btn, #start-game {
+    animation: button-pulse 2s infinite;
+}
