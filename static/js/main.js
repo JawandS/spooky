@@ -65,71 +65,104 @@ generateMonsterBtn.addEventListener('click', () => {
     displayHybridMonster();
 });
 
-// Monster Display Function
-function displayHybridMonster() {
+// Monster Display Function - Using GPT-4o-mini API
+async function displayHybridMonster() {
     // Add loading animation
     const monsterCard = document.getElementById('monster-card');
     monsterCard.classList.add('monster-generating');
 
-    // Generate the hybrid monster
-    const monster = generateHybridMonster();
-    const description = generateMonsterDescription(monster);
+    // Show loading text
+    document.getElementById('monster-name').textContent = 'Summoning...';
+    document.getElementById('monster-description').innerHTML =
+        '<p class="italic">The AI is conjuring a unique horror from the depths...</p>';
 
-    // Dramatic reveal after short delay
-    setTimeout(() => {
-        // Update emoji
-        document.getElementById('monster-emoji').textContent = monster.emojis;
-
-        // Update name
-        document.getElementById('monster-name').textContent = monster.name;
-
-        // Update parents
-        document.getElementById('monster-parents').innerHTML =
-            `<span>A fusion of ${monster.parents.join(' and ')}</span>`;
-
-        // Update description
-        document.getElementById('monster-description').innerHTML =
-            `<p>${description}</p>`;
-
-        // Update physical traits
-        document.querySelector('.trait-head').textContent = monster.traits.head;
-        document.querySelector('.trait-torso').textContent = monster.traits.torso;
-        document.querySelector('.trait-arms').textContent = monster.traits.arms;
-        document.querySelector('.trait-legs').textContent = monster.traits.legs;
-        document.querySelector('.trait-special').textContent = monster.traits.special;
-
-        // Update abilities
-        const abilitiesList = document.getElementById('abilities-list');
-        abilitiesList.innerHTML = '';
-        monster.abilities.forEach(ability => {
-            const li = document.createElement('li');
-            li.textContent = ability;
-            abilitiesList.appendChild(li);
+    try {
+        // Call the Flask API to generate monster using GPT-4o-mini
+        const response = await fetch('/api/generate-monster', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
 
-        // Update personality
-        document.getElementById('personality-list').textContent =
-            monster.personality.join(', ');
+        if (!response.ok) {
+            throw new Error('Failed to generate monster');
+        }
 
-        // Update colors
-        const colorsDiv = document.getElementById('monster-colors');
-        colorsDiv.innerHTML = '';
-        monster.colors.forEach(color => {
-            const span = document.createElement('span');
-            span.className = 'px-3 py-1 bg-gray-700 rounded text-sm';
-            span.textContent = color;
-            colorsDiv.appendChild(span);
-        });
+        const monster = await response.json();
 
-        // Remove loading animation and add reveal animation
-        monsterCard.classList.remove('monster-generating');
-        monsterCard.classList.add('monster-reveal');
+        // Check for error in response
+        if (monster.error) {
+            throw new Error(monster.message || 'Unknown error');
+        }
 
-        // Remove reveal animation after it completes
+        // Dramatic reveal after receiving data
         setTimeout(() => {
-            monsterCard.classList.remove('monster-reveal');
-        }, 1000);
-    }, 800);
+            // Update emoji
+            document.getElementById('monster-emoji').textContent = monster.emojis;
+
+            // Update name
+            document.getElementById('monster-name').textContent = monster.name;
+
+            // Update parents
+            document.getElementById('monster-parents').innerHTML =
+                `<span>A fusion of ${monster.parents.join(' and ')}</span>`;
+
+            // Update description
+            document.getElementById('monster-description').innerHTML =
+                `<p>${monster.description}</p>`;
+
+            // Update physical traits
+            document.querySelector('.trait-head').textContent = monster.traits.head;
+            document.querySelector('.trait-torso').textContent = monster.traits.torso;
+            document.querySelector('.trait-arms').textContent = monster.traits.arms;
+            document.querySelector('.trait-legs').textContent = monster.traits.legs;
+            document.querySelector('.trait-special').textContent = monster.traits.special;
+
+            // Update abilities
+            const abilitiesList = document.getElementById('abilities-list');
+            abilitiesList.innerHTML = '';
+            monster.abilities.forEach(ability => {
+                const li = document.createElement('li');
+                li.textContent = ability;
+                abilitiesList.appendChild(li);
+            });
+
+            // Update personality
+            document.getElementById('personality-list').textContent =
+                monster.personality.join(', ');
+
+            // Update colors
+            const colorsDiv = document.getElementById('monster-colors');
+            colorsDiv.innerHTML = '';
+            monster.colors.forEach(color => {
+                const span = document.createElement('span');
+                span.className = 'px-3 py-1 bg-gray-700 rounded text-sm';
+                span.textContent = color;
+                colorsDiv.appendChild(span);
+            });
+
+            // Remove loading animation and add reveal animation
+            monsterCard.classList.remove('monster-generating');
+            monsterCard.classList.add('monster-reveal');
+
+            // Remove reveal animation after it completes
+            setTimeout(() => {
+                monsterCard.classList.remove('monster-reveal');
+            }, 1000);
+        }, 500);
+
+    } catch (error) {
+        console.error('Error generating monster:', error);
+
+        // Show error message
+        monsterCard.classList.remove('monster-generating');
+        document.getElementById('monster-name').textContent = 'Error!';
+        document.getElementById('monster-emoji').textContent = '❌';
+        document.getElementById('monster-description').innerHTML =
+            `<p class="text-red-400">Failed to summon monster: ${error.message}</p>
+             <p class="text-sm text-gray-400 mt-2">Make sure your OPENAI_API_KEY is set in the .env file</p>`;
+    }
 }
 
 // Pumpkin Catching Game
