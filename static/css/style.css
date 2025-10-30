@@ -280,3 +280,95 @@ html {
 #enter-btn, #start-game {
     animation: button-pulse 2s infinite;
 }
+
+/* Monster Card Animations */
+.monster-card {
+    transition: all 0.5s ease;
+}
+
+/* Generating Animation - Pulsing and Glowing */
+.monster-generating {
+    animation: monster-pulse 0.8s ease-in-out infinite;
+    filter: blur(2px);
+}
+
+@keyframes monster-pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(249, 115, 22, 0.5);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 40px rgba(168, 85, 247, 0.8);
+    }
+}
+
+/* Reveal Animation - Dramatic Entrance */
+.monster-reveal {
+    animation: monster-reveal 1s ease-out forwards;
+}
+
+@keyframes monster-reveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) rotateY(-10deg);
+        filter: blur(5px);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05) rotateY(5deg);
+        filter: blur(0);
+        box-shadow: 0 0 60px rgba(249, 115, 22, 1),
+                    0 0 100px rgba(168, 85, 247, 0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotateY(0);
+        filter: blur(0);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    }
+}
+
+/* Monster Card Glow Effect */
+#monster-card {
+    position: relative;
+}
+
+#monster-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, #f97316, #a855f7, #10b981, #f97316);
+    background-size: 400% 400%;
+    border-radius: 0.5rem;
+    z-index: -1;
+    opacity: 0;
+    animation: gradient-rotate 3s ease infinite;
+    transition: opacity 0.3s;
+}
+
+#monster-card:hover::before {
+    opacity: 0.6;
+}
+
+@keyframes gradient-rotate {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Monster Emoji Animation */
+#monster-emoji {
+    transition: transform 0.3s;
+}
+
+#monster-emoji:hover {
+    transform: scale(1.2) rotate(10deg);
+    filter: drop-shadow(0 0 20px rgba(249, 115, 22, 0.8));
+}

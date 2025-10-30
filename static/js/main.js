@@ -18,22 +18,119 @@ document.addEventListener('mousemove', (e) => {
     }, 2000);
 });
 
-// Enter button - show game section
+// Navigation Elements
 const enterBtn = document.getElementById('enter-btn');
+const monsterSection = document.getElementById('monster-section');
 const gameSection = document.getElementById('game-section');
-const backBtn = document.getElementById('back-btn');
+const backMonsterBtn = document.getElementById('back-monster-btn');
+const backGameBtn = document.getElementById('back-game-btn');
+const playGameBtn = document.getElementById('play-game-btn');
+const generateMonsterBtn = document.getElementById('generate-monster-btn');
 
+// Enter button - show monster section and generate first monster
 enterBtn.addEventListener('click', () => {
-    gameSection.classList.remove('hidden');
-    gameSection.scrollIntoView({ behavior: 'smooth' });
-    batTrailEnabled = false; // Disable bat trail during game
+    monsterSection.classList.remove('hidden');
+    monsterSection.scrollIntoView({ behavior: 'smooth' });
+    batTrailEnabled = false;
+
+    // Generate first monster with dramatic delay
+    setTimeout(() => {
+        displayHybridMonster();
+    }, 500);
 });
 
-backBtn.addEventListener('click', () => {
-    gameSection.classList.add('hidden');
+// Back to home from monster section
+backMonsterBtn.addEventListener('click', () => {
+    monsterSection.classList.add('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     batTrailEnabled = true;
 });
+
+// Play game button - switch to game section
+playGameBtn.addEventListener('click', () => {
+    monsterSection.classList.add('hidden');
+    gameSection.classList.remove('hidden');
+    gameSection.scrollIntoView({ behavior: 'smooth' });
+});
+
+// Back to monster from game
+backGameBtn.addEventListener('click', () => {
+    gameSection.classList.add('hidden');
+    monsterSection.classList.remove('hidden');
+    monsterSection.scrollIntoView({ behavior: 'smooth' });
+});
+
+// Generate new monster button
+generateMonsterBtn.addEventListener('click', () => {
+    displayHybridMonster();
+});
+
+// Monster Display Function
+function displayHybridMonster() {
+    // Add loading animation
+    const monsterCard = document.getElementById('monster-card');
+    monsterCard.classList.add('monster-generating');
+
+    // Generate the hybrid monster
+    const monster = generateHybridMonster();
+    const description = generateMonsterDescription(monster);
+
+    // Dramatic reveal after short delay
+    setTimeout(() => {
+        // Update emoji
+        document.getElementById('monster-emoji').textContent = monster.emojis;
+
+        // Update name
+        document.getElementById('monster-name').textContent = monster.name;
+
+        // Update parents
+        document.getElementById('monster-parents').innerHTML =
+            `<span>A fusion of ${monster.parents.join(' and ')}</span>`;
+
+        // Update description
+        document.getElementById('monster-description').innerHTML =
+            `<p>${description}</p>`;
+
+        // Update physical traits
+        document.querySelector('.trait-head').textContent = monster.traits.head;
+        document.querySelector('.trait-torso').textContent = monster.traits.torso;
+        document.querySelector('.trait-arms').textContent = monster.traits.arms;
+        document.querySelector('.trait-legs').textContent = monster.traits.legs;
+        document.querySelector('.trait-special').textContent = monster.traits.special;
+
+        // Update abilities
+        const abilitiesList = document.getElementById('abilities-list');
+        abilitiesList.innerHTML = '';
+        monster.abilities.forEach(ability => {
+            const li = document.createElement('li');
+            li.textContent = ability;
+            abilitiesList.appendChild(li);
+        });
+
+        // Update personality
+        document.getElementById('personality-list').textContent =
+            monster.personality.join(', ');
+
+        // Update colors
+        const colorsDiv = document.getElementById('monster-colors');
+        colorsDiv.innerHTML = '';
+        monster.colors.forEach(color => {
+            const span = document.createElement('span');
+            span.className = 'px-3 py-1 bg-gray-700 rounded text-sm';
+            span.textContent = color;
+            colorsDiv.appendChild(span);
+        });
+
+        // Remove loading animation and add reveal animation
+        monsterCard.classList.remove('monster-generating');
+        monsterCard.classList.add('monster-reveal');
+
+        // Remove reveal animation after it completes
+        setTimeout(() => {
+            monsterCard.classList.remove('monster-reveal');
+        }, 1000);
+    }, 800);
+}
 
 // Pumpkin Catching Game
 let score = 0;

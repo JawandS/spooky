@@ -47,6 +47,85 @@
         </div>
     </section>
 
+    <!-- Monster Generator Section -->
+    <section id="monster-section" class="min-h-screen py-20 px-4 bg-gradient-to-b from-black via-purple-900 to-black hidden">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-5xl md:text-7xl font-bold mb-8 spooky-title glow-text">
+                Your Monster Awaits... 👹
+            </h2>
+
+            <!-- Monster Display Card -->
+            <div id="monster-card" class="monster-card bg-gray-900 border-4 border-orange-600 rounded-lg p-8 mb-8 shadow-2xl">
+                <div id="monster-emoji" class="text-9xl mb-6 animate-bounce">
+                    🎃
+                </div>
+
+                <h3 id="monster-name" class="text-4xl font-bold mb-4 text-orange-400">
+                    ???
+                </h3>
+
+                <div id="monster-parents" class="text-xl mb-6 text-purple-300 italic">
+                    <span>A fusion of ancient horrors...</span>
+                </div>
+
+                <div id="monster-description" class="text-lg mb-6 text-gray-300 leading-relaxed">
+                    <p class="italic">The darkness stirs... Something is emerging...</p>
+                </div>
+
+                <!-- Monster Details -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- Physical Traits -->
+                    <div class="bg-gray-800 rounded-lg p-4 border-2 border-purple-500">
+                        <h4 class="text-xl font-bold mb-3 text-purple-400">Physical Form</h4>
+                        <ul id="monster-traits" class="text-left text-sm space-y-2 text-gray-300">
+                            <li>🎭 Head: <span class="trait-head">Unknown</span></li>
+                            <li>🦴 Torso: <span class="trait-torso">Unknown</span></li>
+                            <li>✋ Arms: <span class="trait-arms">Unknown</span></li>
+                            <li>🦵 Legs: <span class="trait-legs">Unknown</span></li>
+                            <li>✨ Special: <span class="trait-special">Unknown</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Abilities & Personality -->
+                    <div class="bg-gray-800 rounded-lg p-4 border-2 border-green-500">
+                        <h4 class="text-xl font-bold mb-3 text-green-400">Powers & Traits</h4>
+                        <div id="monster-abilities" class="text-left text-sm space-y-2 text-gray-300 mb-3">
+                            <p class="font-semibold text-green-300">Abilities:</p>
+                            <ul id="abilities-list" class="list-disc list-inside">
+                                <li>Unknown</li>
+                            </ul>
+                        </div>
+                        <div id="monster-personality" class="text-left text-sm text-gray-300">
+                            <p class="font-semibold text-orange-300">Personality:</p>
+                            <p id="personality-list" class="italic">Unknown</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Color Scheme -->
+                <div class="mb-6">
+                    <p class="text-sm text-gray-400">Color Palette:</p>
+                    <div id="monster-colors" class="flex justify-center gap-2 mt-2">
+                        <span class="px-3 py-1 bg-gray-700 rounded text-sm">???</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-4 justify-center">
+                <button id="generate-monster-btn" class="px-8 py-4 bg-purple-600 hover:bg-purple-700 rounded-lg text-xl font-bold transform hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-purple-500/50 cursor-pointer">
+                    🎲 Generate Monster
+                </button>
+                <button id="play-game-btn" class="px-8 py-4 bg-green-600 hover:bg-green-700 rounded-lg text-xl font-bold transform hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-green-500/50 cursor-pointer">
+                    🎃 Play Pumpkin Game
+                </button>
+                <button id="back-monster-btn" class="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-xl font-bold transform hover:scale-105 transition-all duration-300 cursor-pointer">
+                    ← Back to Home
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- Pumpkin Counter Game -->
     <section id="game-section" class="min-h-screen py-20 px-4 bg-gradient-to-b from-black via-purple-900 to-black hidden">
         <div class="container mx-auto text-center">
@@ -70,77 +149,13 @@
                 </div>
             </div>
 
-            <button id="back-btn" class="mt-8 px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-xl font-bold transform hover:scale-105 transition-all duration-300 cursor-pointer">
-                ← Back to Home
+            <button id="back-game-btn" class="mt-8 px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-xl font-bold transform hover:scale-105 transition-all duration-300 cursor-pointer">
+                ← Back to Monster
             </button>
         </div>
     </section>
 
-    <!-- Spooky Gallery Section -->
-    <section class="py-20 px-4 bg-gradient-to-b from-black via-gray-900 to-purple-900">
-        <div class="container mx-auto">
-            <h2 class="text-5xl md:text-7xl font-bold text-center mb-16 spooky-title glow-text">
-                Hall of Horrors
-            </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="spooky-card bg-gray-800 rounded-lg p-6 transform hover:scale-105 transition-all duration-300 border-2 border-orange-500 shadow-lg hover:shadow-orange-500/50">
-                    <div class="text-6xl mb-4 text-center animate-bounce">👻</div>
-                    <h3 class="text-2xl font-bold mb-3 text-orange-400">Ghostly Encounters</h3>
-                    <p class="text-gray-300">Beware of the spirits that roam these halls after midnight...</p>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="spooky-card bg-gray-800 rounded-lg p-6 transform hover:scale-105 transition-all duration-300 border-2 border-purple-500 shadow-lg hover:shadow-purple-500/50">
-                    <div class="text-6xl mb-4 text-center animate-bounce">🧛</div>
-                    <h3 class="text-2xl font-bold mb-3 text-purple-400">Vampire's Lair</h3>
-                    <p class="text-gray-300">The count awakens when darkness falls upon the land...</p>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="spooky-card bg-gray-800 rounded-lg p-6 transform hover:scale-105 transition-all duration-300 border-2 border-green-500 shadow-lg hover:shadow-green-500/50">
-                    <div class="text-6xl mb-4 text-center animate-bounce">🧟</div>
-                    <h3 class="text-2xl font-bold mb-3 text-green-400">Zombie Apocalypse</h3>
-                    <p class="text-gray-300">The undead rise from their graves seeking... brains!</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Creepy Facts Section -->
-    <section class="py-20 px-4 bg-gradient-to-b from-purple-900 via-black to-gray-900">
-        <div class="container mx-auto max-w-4xl">
-            <h2 class="text-5xl md:text-7xl font-bold text-center mb-16 spooky-title glow-text">
-                Spooky Facts
-            </h2>
-
-            <div class="space-y-6">
-                <div class="fact-box bg-gray-800 border-l-4 border-orange-500 p-6 rounded-r-lg transform hover:translate-x-2 transition-all duration-300">
-                    <p class="text-lg text-gray-300">🎃 Halloween originated from the ancient Celtic festival of Samhain over 2,000 years ago.</p>
-                </div>
-
-                <div class="fact-box bg-gray-800 border-l-4 border-purple-500 p-6 rounded-r-lg transform hover:translate-x-2 transition-all duration-300">
-                    <p class="text-lg text-gray-300">👻 The fear of Halloween is called Samhainophobia.</p>
-                </div>
-
-                <div class="fact-box bg-gray-800 border-l-4 border-green-500 p-6 rounded-r-lg transform hover:translate-x-2 transition-all duration-300">
-                    <p class="text-lg text-gray-300">🦇 Vampire bats are real! They live in Central and South America and drink blood.</p>
-                </div>
-
-                <div class="fact-box bg-gray-800 border-l-4 border-red-500 p-6 rounded-r-lg transform hover:translate-x-2 transition-all duration-300">
-                    <p class="text-lg text-gray-300">🕷️ The world's largest spider web was found in Texas, spanning 200 yards!</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-black py-8 text-center border-t-2 border-orange-500">
-        <p class="text-orange-400 text-xl">🎃 Have a Spooktacular Halloween! 🎃</p>
-        <p class="text-gray-500 mt-2">Built with Flask & Tailwind CSS</p>
-    </footer>
-
+    <script src="{{ url_for('static', filename='js/monsters.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
