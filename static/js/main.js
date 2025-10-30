@@ -104,31 +104,18 @@ async function displayHybridMonster() {
         const detailsDiv = document.getElementById('monster-details');
         detailsDiv.innerHTML = `
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Physical Traits -->
-                <div class="bg-gray-800 rounded-lg p-4 border-2 border-purple-500">
-                    <h4 class="text-xl font-bold mb-3 text-purple-400">Physical Form</h4>
-                    <ul class="text-left text-sm space-y-2 text-gray-300">
-                        <li>🎭 Head: ${monster.traits.head}</li>
-                        <li>🦴 Torso: ${monster.traits.torso}</li>
-                        <li>✋ Arms: ${monster.traits.arms}</li>
-                        <li>🦵 Legs: ${monster.traits.legs}</li>
-                        <li>✨ Special: ${monster.traits.special}</li>
+                <!-- Abilities -->
+                <div class="bg-gray-800 rounded-lg p-4 border-2 border-green-500">
+                    <h4 class="text-xl font-bold mb-3 text-green-400">Abilities</h4>
+                    <ul class="text-left text-sm space-y-2 text-gray-300 list-disc list-inside">
+                        ${monster.abilities.map(a => `<li>${a}</li>`).join('')}
                     </ul>
                 </div>
 
-                <!-- Abilities & Personality -->
-                <div class="bg-gray-800 rounded-lg p-4 border-2 border-green-500">
-                    <h4 class="text-xl font-bold mb-3 text-green-400">Powers & Traits</h4>
-                    <div class="text-left text-sm space-y-2 text-gray-300 mb-3">
-                        <p class="font-semibold text-green-300">Abilities:</p>
-                        <ul class="list-disc list-inside">
-                            ${monster.abilities.map(a => `<li>${a}</li>`).join('')}
-                        </ul>
-                    </div>
-                    <div class="text-left text-sm text-gray-300">
-                        <p class="font-semibold text-orange-300">Personality:</p>
-                        <p class="italic">${monster.personality.join(', ')}</p>
-                    </div>
+                <!-- Personality -->
+                <div class="bg-gray-800 rounded-lg p-4 border-2 border-purple-500">
+                    <h4 class="text-xl font-bold mb-3 text-purple-400">Personality</h4>
+                    <p class="text-left text-sm text-gray-300 italic">${monster.personality.join(', ')}</p>
                 </div>
             </div>
 
