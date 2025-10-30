@@ -167,33 +167,35 @@ setInterval(() => {
     }
 }, 1000);
 
-// Random floating pumpkins in background
+// Random floating pumpkins in background - Optimized with image
 function createFloatingPumpkin() {
     const pumpkin = document.createElement('div');
-    pumpkin.innerHTML = '🎃';
-    pumpkin.style.position = 'fixed';
-    pumpkin.style.fontSize = '2rem';
-    pumpkin.style.opacity = '0.3';
-    pumpkin.style.pointerEvents = 'none';
-    pumpkin.style.zIndex = '1';
+    pumpkin.className = 'floating-pumpkin';
+
+    const img = document.createElement('img');
+    img.src = '/static/pumpkin.png';
+    img.alt = 'pumpkin';
+    pumpkin.appendChild(img);
+
     pumpkin.style.left = Math.random() * window.innerWidth + 'px';
     pumpkin.style.top = window.innerHeight + 'px';
-    pumpkin.style.transition = 'all 5s linear';
 
     document.body.appendChild(pumpkin);
 
-    setTimeout(() => {
-        pumpkin.style.top = '-100px';
-        pumpkin.style.transform = 'rotate(360deg)';
-    }, 100);
+    // Use requestAnimationFrame for smoother animation
+    requestAnimationFrame(() => {
+        pumpkin.style.transform = `translateY(-${window.innerHeight + 100}px) rotate(360deg)`;
+        pumpkin.style.opacity = '0';
+    });
 
+    // Remove after animation completes
     setTimeout(() => {
         pumpkin.remove();
     }, 5000);
 }
 
-// Create floating pumpkins periodically
-setInterval(createFloatingPumpkin, 3000);
+// Create floating pumpkins periodically - 10x more pumpkins!
+setInterval(createFloatingPumpkin, 300);
 
 // Add spooky greeting
 console.log(`
