@@ -32,32 +32,29 @@ def generate_monster():
         monster_list = ", ".join([f"{name} {icon}" for name, icon in BASE_MONSTERS.items()])
 
         # Create the prompt for GPT-4o-mini
-        prompt = f"""You are a creative Halloween monster generator. Create a unique hybrid monster by combining 2-3 of these base monsters:
+        prompt = f"""Create a hybrid monster by combining exactly TWO of these monsters:
 
 {monster_list}
 
-Generate a JSON response with this exact structure:
+JSON structure:
 {{
-    "name": "creative portmanteau name (e.g., Vampire+Zombie=Vompire)",
-    "emojis": "Include the emojis from the parent monsters you selected (e.g., if combining Vampire 🧛 and Zombie 🧟, use '🧛🧟')",
+    "name": "portmanteau name (e.g., Vampire+Zombie=Vompire)",
+    "emojis": "the two parent emojis (e.g., 🧛🧟)",
     "parents": ["Monster1", "Monster2"],
     "traits": {{
-        "head": "description of head features",
-        "torso": "description of torso/body",
-        "arms": "description of arms/hands",
-        "legs": "description of legs/movement",
-        "special": "unique special ability or feature"
+        "head": "head description",
+        "torso": "torso description",
+        "arms": "arms description",
+        "legs": "legs description",
+        "special": "special ability"
     }},
     "colors": ["color1", "color2", "color3"],
-    "abilities": ["ability1", "ability2", "ability3", "ability4"],
-    "personality": ["trait1", "trait2", "trait3", "trait4"],
-    "description": "A dramatic 2-3 sentence description of this terrifying creature"
+    "abilities": ["ability1", "ability2", "ability3"],
+    "personality": ["trait1", "trait2", "trait3"],
+    "description": "2-3 sentence spooky description"
 }}
 
-IMPORTANT:
-- The "emojis" field must contain ONLY the emojis from the parent monsters you selected (e.g., 🧛🧟 for Vampire+Zombie)
-- The "parents" array must contain the exact names from the available monsters list
-- Make it creative, spooky, and unique! Each generation should be different."""
+Rules: Use exactly 2 parent monsters, include their emojis, be creative."""
 
         # Call GPT-4o-mini
         response = client.chat.completions.create(

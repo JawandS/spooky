@@ -67,17 +67,16 @@ generateMonsterBtn.addEventListener('click', () => {
 
 // Monster Display Function - Using GPT-4o-mini API
 async function displayHybridMonster() {
-    // Add loading animation
     const monsterCard = document.getElementById('monster-card');
     monsterCard.classList.add('monster-generating');
 
-    // Show loading text
+    // Show loading state
     document.getElementById('monster-name').textContent = 'Summoning...';
     document.getElementById('monster-description').innerHTML =
         '<p class="italic">The AI is conjuring a unique horror from the depths...</p>';
+    document.getElementById('monster-details').innerHTML = '';
 
     try {
-        // Call the Flask API to generate monster using GPT-4o-mini
         const response = await fetch('/api/generate-monster', {
             method: 'POST',
             headers: {
@@ -91,62 +90,63 @@ async function displayHybridMonster() {
 
         const monster = await response.json();
 
-        // Check for error in response
         if (monster.error) {
             throw new Error(monster.message || 'Unknown error');
         }
 
-        // Dramatic reveal after receiving data
+        // Dramatic reveal
         setTimeout(() => {
-            // Update emoji
             document.getElementById('monster-emoji').textContent = monster.emojis;
-
-            // Update name
             document.getElementById('monster-name').textContent = monster.name;
-
-            // Update parents
             document.getElementById('monster-parents').innerHTML =
                 `<span>A fusion of ${monster.parents.join(' and ')}</span>`;
-
-            // Update description
             document.getElementById('monster-description').innerHTML =
                 `<p>${monster.description}</p>`;
 
-            // Update physical traits
-            document.querySelector('.trait-head').textContent = monster.traits.head;
-            document.querySelector('.trait-torso').textContent = monster.traits.torso;
-            document.querySelector('.trait-arms').textContent = monster.traits.arms;
-            document.querySelector('.trait-legs').textContent = monster.traits.legs;
-            document.querySelector('.trait-special').textContent = monster.traits.special;
+            // Build dynamic details sections
+            const detailsDiv = document.getElementById('monster-details');
+            detailsDiv.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Physical Traits -->
+                    <div class="bg-gray-800 rounded-lg p-4 border-2 border-purple-500">
+                        <h4 class="text-xl font-bold mb-3 text-purple-400">Physical Form</h4>
+                        <ul class="text-left text-sm space-y-2 text-gray-300">
+                            <li>🎭 Head: ${monster.traits.head}</li>
+                            <li>🦴 Torso: ${monster.traits.torso}</li>
+                            <li>✋ Arms: ${monster.traits.arms}</li>
+                            <li>🦵 Legs: ${monster.traits.legs}</li>
+                            <li>✨ Special: ${monster.traits.special}</li>
+                        </ul>
+                    </div>
 
-            // Update abilities
-            const abilitiesList = document.getElementById('abilities-list');
-            abilitiesList.innerHTML = '';
-            monster.abilities.forEach(ability => {
-                const li = document.createElement('li');
-                li.textContent = ability;
-                abilitiesList.appendChild(li);
-            });
+                    <!-- Abilities & Personality -->
+                    <div class="bg-gray-800 rounded-lg p-4 border-2 border-green-500">
+                        <h4 class="text-xl font-bold mb-3 text-green-400">Powers & Traits</h4>
+                        <div class="text-left text-sm space-y-2 text-gray-300 mb-3">
+                            <p class="font-semibold text-green-300">Abilities:</p>
+                            <ul class="list-disc list-inside">
+                                ${monster.abilities.map(a => `<li>${a}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="text-left text-sm text-gray-300">
+                            <p class="font-semibold text-orange-300">Personality:</p>
+                            <p class="italic">${monster.personality.join(', ')}</p>
+                        </div>
+                    </div>
+                </div>
 
-            // Update personality
-            document.getElementById('personality-list').textContent =
-                monster.personality.join(', ');
+                <!-- Color Palette -->
+                <div class="mt-4">
+                    <p class="text-sm text-gray-400">Color Palette:</p>
+                    <div class="flex justify-center gap-2 mt-2">
+                        ${monster.colors.map(c => `<span class="px-3 py-1 bg-gray-700 rounded text-sm">${c}</span>`).join('')}
+                    </div>
+                </div>
+            `;
 
-            // Update colors
-            const colorsDiv = document.getElementById('monster-colors');
-            colorsDiv.innerHTML = '';
-            monster.colors.forEach(color => {
-                const span = document.createElement('span');
-                span.className = 'px-3 py-1 bg-gray-700 rounded text-sm';
-                span.textContent = color;
-                colorsDiv.appendChild(span);
-            });
-
-            // Remove loading animation and add reveal animation
             monsterCard.classList.remove('monster-generating');
             monsterCard.classList.add('monster-reveal');
 
-            // Remove reveal animation after it completes
             setTimeout(() => {
                 monsterCard.classList.remove('monster-reveal');
             }, 1000);
@@ -155,7 +155,6 @@ async function displayHybridMonster() {
     } catch (error) {
         console.error('Error generating monster:', error);
 
-        // Show error message
         monsterCard.classList.remove('monster-generating');
         document.getElementById('monster-name').textContent = 'Error!';
         document.getElementById('monster-emoji').textContent = '❌';

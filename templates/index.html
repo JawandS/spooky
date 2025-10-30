@@ -72,43 +72,8 @@
                     <p class="italic">The darkness stirs... Something is emerging...</p>
                 </div>
 
-                <!-- Monster Details -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <!-- Physical Traits -->
-                    <div class="bg-gray-800 rounded-lg p-4 border-2 border-purple-500">
-                        <h4 class="text-xl font-bold mb-3 text-purple-400">Physical Form</h4>
-                        <ul id="monster-traits" class="text-left text-sm space-y-2 text-gray-300">
-                            <li>🎭 Head: <span class="trait-head">Unknown</span></li>
-                            <li>🦴 Torso: <span class="trait-torso">Unknown</span></li>
-                            <li>✋ Arms: <span class="trait-arms">Unknown</span></li>
-                            <li>🦵 Legs: <span class="trait-legs">Unknown</span></li>
-                            <li>✨ Special: <span class="trait-special">Unknown</span></li>
-                        </ul>
-                    </div>
-
-                    <!-- Abilities & Personality -->
-                    <div class="bg-gray-800 rounded-lg p-4 border-2 border-green-500">
-                        <h4 class="text-xl font-bold mb-3 text-green-400">Powers & Traits</h4>
-                        <div id="monster-abilities" class="text-left text-sm space-y-2 text-gray-300 mb-3">
-                            <p class="font-semibold text-green-300">Abilities:</p>
-                            <ul id="abilities-list" class="list-disc list-inside">
-                                <li>Unknown</li>
-                            </ul>
-                        </div>
-                        <div id="monster-personality" class="text-left text-sm text-gray-300">
-                            <p class="font-semibold text-orange-300">Personality:</p>
-                            <p id="personality-list" class="italic">Unknown</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Color Scheme -->
-                <div class="mb-6">
-                    <p class="text-sm text-gray-400">Color Palette:</p>
-                    <div id="monster-colors" class="flex justify-center gap-2 mt-2">
-                        <span class="px-3 py-1 bg-gray-700 rounded text-sm">???</span>
-                    </div>
-                </div>
+                <!-- AI-Generated Monster Details -->
+                <div id="monster-details" class="space-y-4"></div>
             </div>
 
             <!-- Action Buttons -->
@@ -155,7 +120,6 @@
         </div>
     </section>
 
-    <script src="{{ url_for('static', filename='js/monsters.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
